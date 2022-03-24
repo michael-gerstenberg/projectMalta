@@ -1,16 +1,16 @@
 [
     {
+        "name": "addBasket",
+        "private": false,
+        "run_as_system": true
+    },
+    {
         "name": "returnAllRCs",
         "private": false,
         "run_as_system": true
     },
     {
         "name": "returnRCs",
-        "private": false,
-        "run_as_system": true
-    },
-    {
-        "name": "addBasket",
         "private": false,
         "run_as_system": true
     }

@@ -1,22 +1,11 @@
 exports = function(payload) {
-const collection = context.services.get("mongodb-atlas").db("project_malta").collection("basket");
   
-  	let arg = payload.query.arg;
+  let arg = payload.query.arg;
 
-  	return collection.aggregate(
+  const collection = context.services.get("mongodb-atlas").db("project_malta").collection("basket");
+  const query = { name: arg.name };
+  const update = { $set: arg};
+  const options = { upsert: true };
 
-[{$search: {
- index: 'default',
- text: {
-  query: arg,
-  path: {
-   wildcard: '*'
-  },
-  fuzzy: {
-   maxEdits: 2
-  }
- }
-}}]
-      
-      ).toArray();
+  return collection.updateOne(query, update, options);
 };
