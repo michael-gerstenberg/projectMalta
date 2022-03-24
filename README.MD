@@ -52,5 +52,6 @@ The following provides a template of how RCs are stored in MongoDB:
 * **rc_extended.rc_title**: Contains the short description of the RC from the POV proof exercises: https://github.com/10gen/pov-proof-exercises/
 * **rc_extended.description**: Contains the long version of the description
 * **sources**: Array, that contains all relevant references that are linked towards the desired RC
+* **ops_dev_sec**: Defines which major RC category the RC is going to be listed in within the slides generated
 
 ## Next section
