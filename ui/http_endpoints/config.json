@@ -1,5 +1,25 @@
 [
     {
+        "route": "/addBasket",
+        "http_method": "POST",
+        "function_name": "addBasket",
+        "validation_method": "NO_VALIDATION",
+        "respond_result": false,
+        "fetch_custom_user_data": false,
+        "create_user_on_auth": false,
+        "disabled": false
+    },
+    {
+        "route": "/getAllBasketNames",
+        "http_method": "GET",
+        "function_name": "returnAllBasketNames",
+        "validation_method": "NO_VALIDATION",
+        "respond_result": true,
+        "fetch_custom_user_data": false,
+        "create_user_on_auth": false,
+        "disabled": false
+    },
+    {
         "route": "/returnrc",
         "http_method": "GET",
         "function_name": "returnRCs",
@@ -13,26 +33,6 @@
         "route": "/getAllRCs",
         "http_method": "GET",
         "function_name": "returnAllRCs",
-        "validation_method": "NO_VALIDATION",
-        "respond_result": true,
-        "fetch_custom_user_data": false,
-        "create_user_on_auth": false,
-        "disabled": false
-    },
-    {
-        "route": "/addBasket",
-        "http_method": "POST",
-        "function_name": "addBasket",
-        "validation_method": "NO_VALIDATION",
-        "respond_result": false,
-        "fetch_custom_user_data": false,
-        "create_user_on_auth": false,
-        "disabled": false
-    },
-    {
-        "route": "/getAllBasketNames",
-        "http_method": "GET",
-        "function_name": "getAllBasketNames",
         "validation_method": "NO_VALIDATION",
         "respond_result": true,
         "fetch_custom_user_data": false,
