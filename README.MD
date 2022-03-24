@@ -42,7 +42,8 @@ The following provides a template of how RCs are stored in MongoDB:
         "link": ""
     }],
     "comments": "",
-    "tags": []
+    "tags": [],
+    "ops_dev_sec": ""
 }
 ```
 * **rc_identifier**: A unique ID for internal purposes, is comprised out of the official POV proof exercise ID: https://github.com/10gen/pov-proof-exercises/ In case no such ID exists (as the RC itself is not listed in the aforementioned repository) a new MXX id is chosen.
