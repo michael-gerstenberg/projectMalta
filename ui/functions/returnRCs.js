@@ -1,5 +1,5 @@
 exports = function(payload) {
-const collection = context.services.get("projectMalta").db("project_malta").collection("rc_collection");
+const collection = context.services.get("mongodb-atlas").db("project_malta").collection("rc_collection");
   
   	let arg = payload.query.arg;
 
