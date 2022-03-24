@@ -4,7 +4,19 @@ const collection = context.services.get("mongodb-atlas").db("project_malta").col
   	let arg = payload.query.arg;
 
   	return collection.aggregate(
-  	  [{$project: {
-        _id: 0
-      }}]).toArray();
+
+[{$search: {
+ index: 'default',
+ text: {
+  query: arg,
+  path: {
+   wildcard: '*'
+  },
+  fuzzy: {
+   maxEdits: 2
+  }
+ }
+}}]
+      
+      ).toArray();
 };
