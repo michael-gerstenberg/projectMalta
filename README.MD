@@ -6,3 +6,37 @@ __SA Maintainer__: [Michael Gerstenberg](mailto:michael.gerstenberg@mongodb.com)
 
 ---
 ## Description
+
+---
+## Raw Data in MongoDB
+```JSON
+{
+    "schema_version": 1,
+    "rc_identifier": "",
+    "valid": {
+        "atlas": true,
+        "ea": true,
+        "community": true
+    },
+    "product_name": "",
+    "rc_extended": {
+        "en": {
+            "rc_title": "",
+            "description": ""
+        },
+        "de": {
+            "rc_title": "",
+            "description": ""
+        }
+    },
+    "sources": [{
+        "title": "",
+        "link": ""
+    }, {
+        "title": "",
+        "link": ""
+    }],
+    "comments": "",
+    "tags": []
+}
+```
