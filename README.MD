@@ -6,9 +6,14 @@ __SA Maintainer__: [Michael Gerstenberg](mailto:michael.gerstenberg@mongodb.com)
 
 ---
 ## Description
+- RCs are stored in an M10 in MongoDB Atlas
+- They are accessed via a Realm hosted Web App
+- Via an API hosted on Realm the RCs are forwarded to the Google Docs API
+- There they are processed into a suitable slide format
 
 ---
 ## Raw Data in MongoDB
+The following provides a template of how RCs are stored in MongoDB:
 ```JSON
 {
     "schema_version": 1,
@@ -40,3 +45,11 @@ __SA Maintainer__: [Michael Gerstenberg](mailto:michael.gerstenberg@mongodb.com)
     "tags": []
 }
 ```
+**rc_identifier**: A unique ID for internal purposes, is comprised out of the official POV proof exercise ID: https://github.com/10gen/pov-proof-exercises/ In case no such ID exists (as the RC itself is not listed in the aforementioned repository) a new MXX id is chosen.
+**valid**: Indicates for which main pillars of the MongoDB value propisition this RC is valid for.
+**product_name**: Indication of which product (more detailed than Atlas, EA, ...) this RC is valid for
+**rc_extended.rc_title**: Contains the short description of the RC from the POV proof exercises: https://github.com/10gen/pov-proof-exercises/
+**rc_extended.description**: Contains the long version of the description
+**sources**: Array, that contains all relevant references that are linked towards the desired RC
+
+## Next section
