@@ -1,0 +1,8 @@
+{
+    "app_id": "projectmalta-puclb",
+    "config_version": 20210101,
+    "name": "projectMalta",
+    "location": "DE-FF",
+    "deployment_model": "LOCAL",
+    "environment": "development"
+}
