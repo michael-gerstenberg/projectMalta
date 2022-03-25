@@ -1,5 +1,10 @@
 [
     {
+        "name": "addBasket",
+        "private": false,
+        "run_as_system": true
+    },
+    {
         "name": "returnAllBasketNames",
         "private": false,
         "run_as_system": true
@@ -17,11 +22,6 @@
     {
         "name": "returnSingleBasket",
         "private": true,
-        "run_as_system": true
-    },
-    {
-        "name": "addBasket",
-        "private": false,
         "run_as_system": true
     }
 ]

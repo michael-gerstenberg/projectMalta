@@ -6,7 +6,7 @@ const collection = context.services.get("mongodb-atlas").db("project_malta").col
   	return collection.aggregate(
 
 [{$search: {
- index: 'default',
+ index: 'RCsearch',
  text: {
   query: arg,
   path: {
