@@ -1,7 +1,7 @@
 exports = async function(payload) {
 const collection = context.services.get("mongodb-atlas").db("project_malta").collection("basket");
   
-  	let arg = JSON.parse(payload.body.text());
+  	let arg = payload.query.arg;
     let rcExtendedLang = 'rcs.rc_extended.' + arg.lang;
   	let result = await collection.aggregate([
   	  {'$match': { 'name': arg.name }},
