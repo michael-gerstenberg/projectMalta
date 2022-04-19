@@ -35,6 +35,6 @@ const collection = context.services.get("mongodb-atlas").db("project_malta").col
   	    'rcs.sources': 1,
   	    'rcs.category': '$rcs.ops_dev_sec'
   	  }}
-  	]);
+  	]).toArray();
   	return result[0];
 };
