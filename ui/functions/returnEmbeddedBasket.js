@@ -3,7 +3,6 @@ const collection = context.services.get("mongodb-atlas").db("project_malta").col
   
   	let arg = payload.query.arg;
     let rcExtendedLang = 'rcs.rc_extended.' + arg.lang;
-    console.log(rcExtendedLang);
   	return collection.aggregate([
   	  {'$match': { 'name': arg.name }},
   	  {'$addFields': {
