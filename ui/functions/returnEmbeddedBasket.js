@@ -32,7 +32,8 @@ const collection = context.services.get("mongodb-atlas").db("project_malta").col
   	    'lang': 1,
   	    'rcs.rc_identifier': 1,
   	    'rcs.rc_extended': 1,
-  	    'rcs.sources': 1
+  	    'rcs.sources': 1,
+  	    'rcs.category': '$rcs.ops_dev_sec'
   	  }}
   	]);
 };
