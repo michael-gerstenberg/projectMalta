@@ -1,9 +1,9 @@
-exports = function(payload) {
+exports = async function(payload) {
 const collection = context.services.get("mongodb-atlas").db("project_malta").collection("basket");
   
   	let arg = JSON.parse(payload.body.text());
     let rcExtendedLang = 'rcs.rc_extended.' + arg.lang;
-  	return collection.aggregate([
+  	let result = await collection.aggregate([
   	  {'$match': { 'name': arg.name }},
   	  {'$addFields': {
   	    'rcs': {
@@ -35,5 +35,6 @@ const collection = context.services.get("mongodb-atlas").db("project_malta").col
   	    'rcs.sources': 1,
   	    'rcs.category': '$rcs.ops_dev_sec'
   	  }}
-  	])[0];
+  	]);
+  	return result[0];
 };
