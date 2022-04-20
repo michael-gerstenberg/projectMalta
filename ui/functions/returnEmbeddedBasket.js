@@ -26,14 +26,19 @@ const collection = context.services.get("mongodb-atlas").db("project_malta").col
   	    'foreignField': '_id',
   	    'as': 'rcs'
   	  }},
-  	  {'$project': {
+  	  {
   	    '_id': 0,
   	    'name': 1,
   	    'lang': 1,
-  	    'rcs.rc_identifier': 1,
-  	    'rcs.rc_extended': 1,
-  	    'rcs.sources': 1,
-  	    'rcs.category': '$rcs.ops_dev_sec'
+  	    'rcs': {"$map": {
+  	      'input': "$rcs",
+  	      'in' : {
+  	        'rc_identifier': "$$this.rc_identifier",
+  	        'rc_extended': "$$this.rc_extended",
+  	        'sources': "$$this.sources",
+  	        'category': "$$this.ops_dev_sec"
+  	      }
+  	    }
   	  }}
   	]).toArray();
   	return result[0];
