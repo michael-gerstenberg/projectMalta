@@ -27,6 +27,7 @@ const collection = context.services.get("mongodb-atlas").db("project_malta").col
   	    'as': 'rcs'
   	  }},
   	  {
+  	    '$project': {
   	    '_id': 0,
   	    'name': 1,
   	    'lang': 1,
@@ -39,7 +40,8 @@ const collection = context.services.get("mongodb-atlas").db("project_malta").col
   	        'category': "$$this.ops_dev_sec"
   	      }
   	    }
-  	  }}
+      }}
+  	  }
   	]).toArray();
   	return result[0];
 };
