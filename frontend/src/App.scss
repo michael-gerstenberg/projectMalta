@@ -6,6 +6,11 @@ $theme-colors: (
   "primary": #4Db33D
 );
 
+body {
+    font-family: "LexendDeca-Regular";
+    src: url("/fonts/LexendDeca-Regular.ttf");
+}
+
 .App {
   text-align: center;
 }
@@ -22,9 +27,9 @@ $theme-colors: (
 }
 
 .App-link {
-  color: #61dafb;
+  color: #00684A;
 }
 
-tr.selected {
-  background-color: map.get($theme-colors, "primary")
+.Row-selected {
+  background-color: #ABEBAB;
 }

@@ -79,7 +79,7 @@ function RCTable(props) {
         </Modal.Body>
       </Modal> : null
       }
-      <Table striped bordered hover>
+      <Table striped bordered>
         <thead>
           <tr>
             <th></th>
@@ -93,7 +93,7 @@ function RCTable(props) {
           {props.rcs.map((rc, idx) => {
             const rcExt = rc.rc_extended[props.lang] ? rc.rc_extended[props.lang] : rc.rc_extended[props.defaultLang];
             const isSelected = props.selectedRCs.includes(rc._id['$oid']);
-            return <tr key={idx} className={isSelected ? "selected" : ""}>
+            return <tr key={idx} className={isSelected ? "Row-selected" : ""}>
               <td style={{textAlign: "center", width: "40px"}}>
                 {isSelected ?
                   checkIcon(faCheckSquare, rc, props) : checkIcon(faSquare, rc, props)
@@ -111,7 +111,7 @@ function RCTable(props) {
               <td>
                 <ul>
                   {rc.sources.map((src) => {
-                    return <li><a href={src.link}>{src.title}</a></li>
+                    return <li key={src.title}><a className='App-link' href={src.link}>{src.title}</a></li>
                   })}
                 </ul>
               </td>

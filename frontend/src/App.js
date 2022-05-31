@@ -130,7 +130,7 @@ function App() {
           {exportDisabled ?
             <label style={{marginRight: '10px', color: 'red'}}>Save your collection first!</label> : null
           }
-          <Button variant="warning" style={{marginRight: '20px'}} disabled={exportDisabled} onClick={createSlides}>
+          <Button variant="warning" style={{marginRight: '20px', backgroundColor: '#4DB33D', borderColor: '#4DB33D'}} disabled={exportDisabled} onClick={createSlides}>
             Export Slides
           </Button>
           <Button variant="secondary" onClick={() => setLoadVisible(true)}>
@@ -157,7 +157,7 @@ function App() {
               </Button>
             </Modal.Footer>
           </Modal>
-          <Button variant="primary" disabled={selectedRCs.length == 0} onClick={() => setSaveAsVisible(true)}>
+          <Button variant="warning" style={{backgroundColor: '#4DB33D', borderColor: '#4DB33D'}} disabled={selectedRCs.length == 0} onClick={() => setSaveAsVisible(true)}>
             Save As
           </Button>
           <Modal show={saveAsVisible} onHide={() => setSaveAsVisible(false)}>
