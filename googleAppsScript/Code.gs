@@ -1,36 +1,28 @@
 const templateId = "GSLIDE_TEMPLATE_ID";
-const postTitle = "TITLE";
+const postTitle = "Required Capabilities";
 const SLIDES = {TITLE: 0, JAMBOARD: 1, DEV: 2, OPS: 3, SEC: 4};
-const RC_COLUMNS = {TITLE: 0, WHYANYTHING: 1, WHYMONGODB: 2}
+const RC_COLUMNS = {TITLE: 0, WHYANYTHING: 1, WHYMONGODB: 2};
+const TEMPLATE_ROW_ID = 1;
 
 
-
-function createSlidedeckFromTemplate() { 
+function createSlidedeckFromTemplate(title) { 
   var template = DriveApp.getFileById(templateId);
   var userDriveFolder = DriveApp.getRootFolder();
-  var newDeckFile = template.makeCopy(postTitle, userDriveFolder);
+  var newDeckFile = template.makeCopy(title, userDriveFolder);
   return newDeckFile;
 }
 
 function applyRCsToSlide(slide, rcs) {
-  table = slide.getTables()[0];
-  row = table.getRow(1);
+  const table = slide.getTables()[0];
+  const templateRow = table.getRow(TEMPLATE_ROW_ID);
 
-  var cnt = 0
   rcs.forEach(rc => {
-    var r = null;
-    if (cnt == 0) {
-      r = row;
-
-    } else {
-      r = table.appendRow();
-    }
+    var r = table.appendRow();
     r.getCell(RC_COLUMNS.TITLE).getText().setText(rc.details.rc_title);
     r.getCell(RC_COLUMNS.WHYMONGODB).getText().setText(rc.details.description);
+  });
 
-    cnt++;
-  })
-  
+  templateRow.remove();
 }
 
 function createSlides(slidefiles, rcs) {
@@ -47,7 +39,7 @@ function createSlides(slidefiles, rcs) {
   applyRCsToSlide(slides[SLIDES.SEC], secRcs);
 }
 
-function preparePayload(payload) {
+function prepareRCList(payload) {
   payload['rcs'].forEach(rc => {
     rc['details'] = rc['rc_extended'][payload.lang];
     delete rc['rc_extended'];
@@ -59,9 +51,21 @@ function preparePayload(payload) {
 
 function doGet(e) {
 
-  const parameters = e.parameters;
-  const name = parameters['name'];
-  const lang = parameters['lang'];
+  var name = null;
+  var lang = null;
+  var title = null;
+
+  if (e) {
+    const parameters = e.parameters;
+    name = parameters['name'];
+    lang = parameters['lang'];
+    title = parameters['title'];
+  }
+  if (!name) name = "abc";
+  if (!lang) lang = 'en';
+  if (!title) title = postTitle;
+
+  
 
   const options = {
     'method' : 'get',
@@ -69,13 +73,13 @@ function doGet(e) {
   };
   const response = UrlFetchApp.fetch(`BASKETENDPOINT/?name=${name}&lang=${lang}`, options);
   text = response.getContentText();
-  request = JSON.parse(text);
+  var rcContainer = JSON.parse(text);
 
-  request = preparePayload(request)
-  newFile = createSlidedeckFromTemplate();
+  rcContainer = prepareRCList(rcContainer)
+  newFile = createSlidedeckFromTemplate(title);
 
   var htmlpage = `<html><head><meta http-equiv="refresh" content="1; URL=${newFile.getUrl()}" /></head><body><center>Redirect to Slide in a sec.</center></body></html>`
-  createSlides(newFile, request.rcs);
+  createSlides(newFile, rcContainer.rcs);
   
   return HtmlService.createHtmlOutput(htmlpage);
 }
