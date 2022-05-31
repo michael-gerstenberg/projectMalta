@@ -1,7 +1,14 @@
+@use "sass:map";
+
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+$theme-colors: (
+  "primary": #4Db33D
+);
+
 .App {
   text-align: center;
 }
-
 
 .App-header {
   background-color: #282c34;
@@ -16,4 +23,8 @@
 
 .App-link {
   color: #61dafb;
+}
+
+tr.selected {
+  background-color: map.get($theme-colors, "primary")
 }

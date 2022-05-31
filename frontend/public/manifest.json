@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Project Malta",
+  "name": "Tool to Create a Slide Deck Containing the List of Required Capabilities",
   "icons": [
     {
       "src": "favicon.ico",

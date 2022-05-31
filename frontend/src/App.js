@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import {
   Button,
   Container,
@@ -11,22 +10,21 @@ import {
   FormControl,
   Modal,
   Table
-} from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckSquare, faSquare } from '@fortawesome/free-regular-svg-icons'
+} from 'react-bootstrap';
+import RCTable from './RCTable.js';
 import React, {useState, useEffect} from 'react';
-import './App.css';
+import './App.scss';
+import endpoints from './endpoints.json'
 
 var _ = require('lodash');
 
 function App() {
-  const mongoBG = "#4DB33D";
   const [rcs, setRCs] = useState([]);
   const defaultLang = 'en';
   const [lang, setLang] = useState(defaultLang);
 
   function getAllRCs() {
-    const url = "https://eu-central-1.aws.data.mongodb-api.com/app/projectmalta-puclb/endpoint/getAllRCs";
+    const url = endpoints['realmPrefix'] + "/getAllRCs";
     fetch(url).then((data) => data.json()).then((res) => setRCs(res));
   }
 
@@ -47,7 +45,7 @@ function App() {
   const [RCCollectionName, setRCCollectionName] = useState("");
 
   function saveBasket() {
-    const saveBasketUrl = "https://eu-central-1.aws.data.mongodb-api.com/app/projectmalta-puclb/endpoint/addBasket";
+    const saveBasketUrl = endpoints['realmPrefix'] + "/addBasket";
     let basket = {
       "name": RCCollectionName,
       "lang": lang,
@@ -66,7 +64,7 @@ function App() {
   const [loadedBasket, setLoadedBasket] = useState({});
   useEffect(() => {
     if (loadVisible) {
-      const getAllBasketNamesUrl = "https://eu-central-1.aws.data.mongodb-api.com/app/projectmalta-puclb/endpoint/getAllBasketNames";
+      const getAllBasketNamesUrl = endpoints['realmPrefix'] + "/getAllBasketNames";
       fetch(getAllBasketNamesUrl).then((data) => data.json()).then((res) => {
         setBasketNames(res);
       });
@@ -74,7 +72,7 @@ function App() {
   }, [loadVisible])
 
   function loadBasket() {
-    const getBasketUrl = "https://eu-central-1.aws.data.mongodb-api.com/app/projectmalta-puclb/endpoint/getSingleBasket?arg=" + RCCollectionName;
+    const getBasketUrl = endpoints['realmPrefix'] + "/getSingleBasket?arg=" + RCCollectionName;
     fetch(getBasketUrl).then(data => data.json()).then((res) => {
       setLoadedBasket(res);
       setLang(res.lang);
@@ -86,7 +84,7 @@ function App() {
   function onSearchTextChanged(event) {
     let text = event.target.value;
 
-    let endpoint = "https://eu-central-1.aws.data.mongodb-api.com/app/projectmalta-puclb/endpoint/returnrc?arg=" + text;
+    let endpoint = endpoints['realmPrefix'] + "/returnrc?arg=" + text;
 
     fetch(endpoint).then((data) => data.json()).then((res) => {
       if (text == '') {
@@ -100,10 +98,10 @@ function App() {
   }
 
   function createSlides() {
-    let endpoint = "http://185.26.156.15:5000/?id=" + RCCollectionName;
-    fetch(endpoint).then((data) => data.json()).then(res => {
-      console.log(res);
-    });
+    // let endpoint = "http://185.26.156.15:5000/?id=" + RCCollectionName;
+    // let embeddedBasketEndpoint = endpoints['realmPrefix'] + '/returnEmbeddedBasket'; //?name=' + loadedBasket.name + '&lang=' + loadedBasket.lang;
+    let createSlidesEndpoint = endpoints['createSlides'] + '?name=' + loadedBasket.name + '&lang=' + loadedBasket.lang;
+    window.open(createSlidesEndpoint, '_blank').focus();
   }
 
   // console.log(loadedBasket.rc_ids.sort().join(',') == selectedRCs.sort().join(','));
@@ -159,7 +157,7 @@ function App() {
               </Button>
             </Modal.Footer>
           </Modal>
-          <Button style={{backgroundColor:mongoBG}} disabled={selectedRCs.length == 0} onClick={() => setSaveAsVisible(true)}>
+          <Button variant="primary" disabled={selectedRCs.length == 0} onClick={() => setSaveAsVisible(true)}>
             Save As
           </Button>
           <Modal show={saveAsVisible} onHide={() => setSaveAsVisible(false)}>
@@ -183,40 +181,7 @@ function App() {
       </Row>
       <Row>
         <Col>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th></th>
-                <th>RC Title</th>
-                <th>RC Definition</th>
-                <th>RC Description</th>
-                <th>Sources</th>
-              </tr>
-            </thead>
-            <tbody style={{textAlign: 'left'}}>
-              {rcs.map((rc, idx) => {
-                const rcExt = rc.rc_extended[lang] ? rc.rc_extended[lang] : rc.rc_extended[defaultLang];
-                const isSelected = selectedRCs.includes(rc._id['$oid']);
-                return <tr key={idx} style={{backgroundColor: isSelected ? mongoBG: "#00000000"}}>
-                  <td style={{cursor: "pointer", textAlign: "center", width: "40px"}} onClick={()=>toggleRC(rc._id['$oid'])}>
-                  {isSelected ?
-                    <FontAwesomeIcon icon={faCheckSquare} size="lg" /> : <FontAwesomeIcon icon={faSquare} size="lg" />
-                  }
-                  </td>
-                  <td>{rc.rc_identifier}</td>
-                  <td>{rcExt.rc_title}</td>
-                  <td>{rcExt.description}</td>
-                  <td>
-                    <ul>
-                      {rc.sources.map((src) => {
-                        return <li><a href={src.link}>{src.title}</a></li>
-                      })}
-                    </ul>
-                  </td>
-                </tr>
-              })}
-            </tbody>
-          </Table>
+          <RCTable rcs={rcs} selectedRCs={selectedRCs} toggleRC={toggleRC} lang={lang} defaultLang={defaultLang} />
         </Col>
       </Row>
     </Container>
