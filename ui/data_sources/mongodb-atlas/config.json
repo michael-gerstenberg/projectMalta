@@ -2,7 +2,7 @@
     "name": "mongodb-atlas",
     "type": "mongodb-atlas",
     "config": {
-        "clusterName": "Project-Malta",
+        "clusterName": "ProjectMalta",
         "readPreference": "primary",
         "wireProtocolEnabled": false
     },
