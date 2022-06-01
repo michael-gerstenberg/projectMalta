@@ -6,9 +6,13 @@ $theme-colors: (
   "primary": #4Db33D
 );
 
+@font-face {
+    font-family: "LexendDeca-Light";
+    src: url("/fonts/LexendDeca-Light.ttf");
+}
+
 body {
-    font-family: "LexendDeca-Regular";
-    src: url("/fonts/LexendDeca-Regular.ttf");
+    font-family: "LexendDeca-Light" !important;
 }
 
 .App {

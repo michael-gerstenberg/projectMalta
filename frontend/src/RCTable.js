@@ -3,7 +3,7 @@ import {
   Table
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckSquare, faSquare, faCopy, faEdit } from '@fortawesome/free-regular-svg-icons';
+import { faCheckSquare, faSquare, faCopy, faEdit, faCaretSquareUp, faCaretSquareDown } from '@fortawesome/free-regular-svg-icons';
 import {useState} from 'react';
 
 function checkIcon(icon, rc, props) {
@@ -34,6 +34,8 @@ function RCTable(props) {
       setCopyRC(null);
     }
   }
+
+  const caret = <FontAwesomeIcon icon={props.sort['direction'] == 1 ? faCaretSquareDown : faCaretSquareUp} style={{marginLeft: '10px'}} />
 
   return (
     <>
@@ -79,14 +81,26 @@ function RCTable(props) {
         </Modal.Body>
       </Modal> : null
       }
-      <Table striped bordered>
+      <Table striped bordered className="RCTable">
         <thead>
           <tr>
             <th></th>
-            <th>RC Title</th>
-            <th>RC Definition</th>
-            <th>RC Description</th>
-            <th>Sources</th>
+            <th onClick={() => props.requestSort('rc_identifier')} style={{cursor: 'pointer'}}>
+              RC Title
+              {props.sort['field'] == 'rc_identifier' ? caret : null}
+            </th>
+            <th onClick={() => props.requestSort(`rc_extended.${props.lang}.rc_title`)} style={{cursor: 'pointer'}}>
+              RC Definition
+              {props.sort['field'] == `rc_extended.${props.lang}.rc_title` ? caret : null}
+            </th>
+            <th onClick={() => props.requestSort(`rc_extended.${props.lang}.description`)} style={{cursor: 'pointer'}}>
+              RC Description
+              {props.sort['field'] == `rc_extended.${props.lang}.description` ? caret : null}
+            </th>
+            <th onClick={() => props.requestSort('sources')} style={{cursor: 'pointer'}}>
+              Sources
+              {props.sort['field'] == 'sources' ? caret : null}
+            </th>
           </tr>
         </thead>
         <tbody style={{textAlign: 'left'}}>

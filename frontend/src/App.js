@@ -22,13 +22,32 @@ function App() {
   const [rcs, setRCs] = useState([]);
   const defaultLang = 'en';
   const [lang, setLang] = useState(defaultLang);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sort, setSort] = useState({
+    field: 'rc_identifier',
+    direction: 1
+  });
+
+  function requestSort(field) {
+    if (sort.field == field) {
+      setSort({
+        field: field,
+        direction: -sort['direction']
+      });
+    } else {
+      setSort({
+        field: field,
+        direction: 1
+      })
+    }
+  }
 
   function getAllRCs() {
-    const url = endpoints['realmPrefix'] + "/getAllRCs";
+    const url = endpoints['realmPrefix'] + "/getAllRCs?searchTerm=" + searchTerm + "&field=" + sort.field + "&direction=" + sort.direction;
     fetch(url).then((data) => data.json()).then((res) => setRCs(res));
   }
 
-  useEffect(() => getAllRCs(), []);
+  useEffect(() => getAllRCs(), [searchTerm, sort]);
 
   const [selectedRCs, setSelectedRCs] = useState([]);
   function toggleRC(id) {
@@ -118,7 +137,7 @@ function App() {
               <option>es</option>
               <option>it</option>
             </Form.Select>
-            <FormControl aria-label="RC Search" onChange={onSearchTextChanged} />
+            <FormControl aria-label="RC Search" onChange={(e) => setSearchTerm(e.target.value)} />
           </InputGroup>
         </Col>
         <Col xs={2} style={{textAlign: 'left'}}>
@@ -130,10 +149,10 @@ function App() {
           {exportDisabled ?
             <label style={{marginRight: '10px', color: 'red'}}>Save your collection first!</label> : null
           }
-          <Button variant="warning" style={{marginRight: '20px', backgroundColor: '#4DB33D', borderColor: '#4DB33D'}} disabled={exportDisabled} onClick={createSlides}>
+          <Button variant="secondary" style={{marginRight: '20px'}} disabled={exportDisabled} onClick={createSlides}>
             Export Slides
           </Button>
-          <Button variant="secondary" onClick={() => setLoadVisible(true)}>
+          <Button variant="secondary" style={{marginRight: '20px'}} onClick={() => setLoadVisible(true)}>
             Load
           </Button>
           <Modal show={loadVisible} onHide={() => setLoadVisible(false)}>
@@ -157,7 +176,7 @@ function App() {
               </Button>
             </Modal.Footer>
           </Modal>
-          <Button variant="warning" style={{backgroundColor: '#4DB33D', borderColor: '#4DB33D'}} disabled={selectedRCs.length == 0} onClick={() => setSaveAsVisible(true)}>
+          <Button variant="secondary" style={{}} disabled={selectedRCs.length == 0} onClick={() => setSaveAsVisible(true)}>
             Save As
           </Button>
           <Modal show={saveAsVisible} onHide={() => setSaveAsVisible(false)}>
@@ -181,7 +200,14 @@ function App() {
       </Row>
       <Row>
         <Col>
-          <RCTable rcs={rcs} selectedRCs={selectedRCs} toggleRC={toggleRC} lang={lang} defaultLang={defaultLang} />
+          <RCTable rcs={rcs}
+            selectedRCs={selectedRCs}
+            toggleRC={toggleRC}
+            lang={lang}
+            defaultLang={defaultLang}
+            sort={sort}
+            requestSort={requestSort}
+          />
         </Col>
       </Row>
     </Container>
