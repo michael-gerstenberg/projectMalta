@@ -1,10 +1,5 @@
 [
     {
-        "name": "returnAllRCs",
-        "private": false,
-        "run_as_system": true
-    },
-    {
         "name": "returnEmbeddedBasket",
         "private": true,
         "run_as_system": true
@@ -26,6 +21,11 @@
     },
     {
         "name": "returnAllBasketNames",
+        "private": false,
+        "run_as_system": true
+    },
+    {
+        "name": "returnAllRCs",
         "private": false,
         "run_as_system": true
     }
