@@ -28,7 +28,7 @@ exports = function(payload) {
          }
       }}, {
         $sort: {
-          [sort['field']]: sort['direction'] 
+          [sort['field']]: sort['direction']
         }
       }]).toArray();
   }
