@@ -8,7 +8,7 @@ const collection = context.services.get("mongodb-atlas").db("project_malta").col
       [{$search: {
          index: 'default',
          text: {
-          query: arg,
+          query: searchTerm,
           path: {
            wildcard: '*'
           },
