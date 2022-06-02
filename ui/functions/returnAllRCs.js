@@ -8,11 +8,7 @@ exports = function(payload) {
   };
   
   if (searchTerm == "") {
-    return collection.aggregate([{
-      $sort: {
-        [sort['field']]: sort['direction']
-      }
-    }]).toArray();
+    return collection.find().toArray();
   } else {
   	return collection.aggregate(
       [{$search: {
