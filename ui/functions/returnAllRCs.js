@@ -7,7 +7,7 @@ exports = function(payload) {
     direction: parseInt(payload.query.direction)
   };
   
-  if (searchTerm == "") {
+  if (searchTerm == undefined || searchTerm == "") {
     return collection.find().toArray();
   } else {
   	return collection.aggregate(
@@ -24,7 +24,7 @@ exports = function(payload) {
          }
       }}, {
         $sort: {
-          [sort['field']]: 1
+          [sort['field']]: sort['direction']
         }
       }]).toArray();
   }
