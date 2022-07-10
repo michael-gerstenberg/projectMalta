@@ -132,12 +132,12 @@ function App() {
         <Col xs={3}>
           <InputGroup className="mb-3">
             <Form.Select size="lg" value={lang} onChange={(e) => setLang(e.target.value)}>
-              <option>en</option>
-              <option>de</option>
-              <option>es</option>
-              <option>it</option>
+              <option value="en">English</option>
+              <option value="de">Deutsch</option>
+              <option value="es">Español</option>
+              <option value="it">Italiano</option>
             </Form.Select>
-            <FormControl aria-label="RC Search" onChange={(e) => setSearchTerm(e.target.value)} />
+            <FormControl aria-label="RC Search" placeholder="Filter" onChange={(e) => setSearchTerm(e.target.value)} />
           </InputGroup>
         </Col>
         <Col xs={2} style={{textAlign: 'left'}}>
