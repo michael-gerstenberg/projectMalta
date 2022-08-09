@@ -3,5 +3,25 @@
         "name": "api-key",
         "type": "api-key",
         "disabled": true
+    },
+    "oauth2-google": {
+        "name": "oauth2-google",
+        "type": "oauth2-google",
+        "config": {
+            "clientId": "377304446603-g50vhjei6rapcf0kmujn5o03es2c6eai.apps.googleusercontent.com"
+        },
+        "secret_config": {
+            "clientSecret": "google_id"
+        },
+        "disabled": false,
+        "metadata_fields": [
+            {
+                "required": false,
+                "name": "email"
+            }
+        ],
+        "domain_restrictions": [
+            "mongodb.com"
+        ]
     }
 }
