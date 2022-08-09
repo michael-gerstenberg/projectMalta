@@ -8,7 +8,8 @@
         "name": "oauth2-google",
         "type": "oauth2-google",
         "config": {
-            "clientId": "377304446603-g50vhjei6rapcf0kmujn5o03es2c6eai.apps.googleusercontent.com"
+            "clientId": "377304446603-g50vhjei6rapcf0kmujn5o03es2c6eai.apps.googleusercontent.com",
+            "openId": true
         },
         "secret_config": {
             "clientSecret": "google_id"
