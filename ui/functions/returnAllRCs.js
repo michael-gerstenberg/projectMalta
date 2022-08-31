@@ -8,7 +8,7 @@ exports = function(payload) {
   };
   
   if (searchTerm == undefined || searchTerm == "") {
-    return collection.find().toArray();
+    return collection.aggregate([{$sort: {[sort['field']]: sort['direction']}}]).toArray();
   } else {
   	return collection.aggregate(
       [{$search: {
